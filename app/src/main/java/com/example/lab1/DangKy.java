@@ -50,6 +50,7 @@ private FirebaseAuth mAuth;
                             if(task.isSuccessful()){
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(DangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                             else {
                                 Toast.makeText(DangKy.this, "Đăng ký không thành công\nTài khoản đã tồn tại hoặc mật khẩu không đủ mạnh!", Toast.LENGTH_SHORT).show();
