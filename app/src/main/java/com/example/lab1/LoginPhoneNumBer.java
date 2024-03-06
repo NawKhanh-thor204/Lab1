@@ -36,7 +36,23 @@ public class LoginPhoneNumBer extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLoginN);
         Button btnGetOTP = findViewById(R.id.btnGetOTP);
 
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
+                edtOTP.setText(phoneAuthCredential.getSmsCode());
+            }
+
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                mVerificationId = s;
+            }
+        };
         btnGetOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,24 +60,8 @@ public class LoginPhoneNumBer extends AppCompatActivity {
                 if (phoneNumber.isEmpty()) {
                     Toast.makeText(LoginPhoneNumBer.this, "Vui lòng nhập SĐT", Toast.LENGTH_SHORT).show();
                 } else {
-                    mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                        @Override
-                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                            getOTP(phoneNumber);
-                            edtOTP.setText(phoneAuthCredential.getSmsCode());
-                        }
-
-                        @Override
-                        public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                        }
-
-                        @Override
-                        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                            mVerificationId = s;
-                        }
-                    };
-
+                    Toast.makeText(LoginPhoneNumBer.this, "Vui lòng kiểm tra tin nhắn", Toast.LENGTH_SHORT).show();
+getOTP(phoneNumber);
                 }
             }
         });
