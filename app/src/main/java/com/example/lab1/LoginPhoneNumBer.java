@@ -45,7 +45,7 @@ public class LoginPhoneNumBer extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-
+                Toast.makeText(LoginPhoneNumBer.this, "Đã vượt quá số lượt gửi mã. vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -61,7 +61,7 @@ public class LoginPhoneNumBer extends AppCompatActivity {
                     Toast.makeText(LoginPhoneNumBer.this, "Vui lòng nhập SĐT", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginPhoneNumBer.this, "Vui lòng kiểm tra tin nhắn", Toast.LENGTH_SHORT).show();
-getOTP(phoneNumber);
+                    getOTP(phoneNumber);
                 }
             }
         });

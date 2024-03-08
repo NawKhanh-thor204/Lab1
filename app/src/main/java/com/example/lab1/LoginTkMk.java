@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,10 @@ public class LoginTkMk extends AppCompatActivity {
                 if(email.isEmpty()||password.isEmpty()){
                     Toast.makeText(LoginTkMk.this, "Tài khoản, mật khẩu không được bỏ trống", Toast.LENGTH_SHORT).show();
 
+                }
+                else if (!isValidEmail(email)) {
+                    Toast.makeText(LoginTkMk.this, "Địa chỉ email không hợp lệ!", Toast.LENGTH_SHORT).show();
+
                 }else {
                     mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginTkMk.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -45,7 +50,7 @@ public class LoginTkMk extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(LoginTkMk.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginTkMk.this, DangXuat.class));
+                                startActivity(new Intent(LoginTkMk.this, Home.class));
                             }
                             else {
                                 Toast.makeText(LoginTkMk.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
@@ -82,5 +87,8 @@ public class LoginTkMk extends AppCompatActivity {
                 }
             }
         });
+    }
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
